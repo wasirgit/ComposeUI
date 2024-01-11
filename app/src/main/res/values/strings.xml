@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">JetPackUI</string>
+    <string name="dummy_text">sldkjfhlssd sjdhfosdfo sfsdjkfha;skdfho;asdfhsdf s fosdkfh;lskjfs f;sdl fjksldjf;osldkjf;lsdk fsd fo;sdijf;oksjd fso dfa</string>
+    <string name="welcome">Welcome</string>
+    <string name="enter_user_name_or_email">Enter user name or email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="sign_in_to_explore_other_features">Sign in to explore other features</string>
+    <string name="please_enter_valid_email">Please enter valid email</string>
+</resources>
