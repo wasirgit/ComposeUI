@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "JetPackUI"
+rootProject.name = "ComposeUI"
 include(":app")
  

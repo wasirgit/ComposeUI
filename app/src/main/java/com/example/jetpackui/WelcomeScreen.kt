@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,10 +27,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.JetPackUI.R
 import com.example.jetpackui.components.FilledButton
-import com.example.jetpackui.components.FilledButtonPreview
 import com.example.jetpackui.ui.theme.gilroyFontBold
 import com.example.jetpackui.ui.theme.gilroyFontNormal
 
+/**
+ * Created by Asieuzzaman Wasir on 12,January,2024
+ */
 @Composable
 fun WelcomeScreen(
     navController: NavHostController,

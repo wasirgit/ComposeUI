@@ -10,7 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.jetpackui.screens.login.LoginScreen
 import com.example.jetpackui.screens.home.HomeScreen
 import com.example.jetpackui.ui.theme.AppTheme
-
+/**
+ * Created by Asieuzzaman Wasir on 12,January,2024
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
