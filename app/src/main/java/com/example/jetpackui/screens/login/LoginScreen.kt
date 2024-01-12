@@ -1,7 +1,6 @@
 package com.example.jetpackui.screens.login
 
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -108,11 +107,7 @@ fun LoginScreen(
             PasswordField(value = inputPass, onChange = {
                 inputPass = it
             }, submit = {
-                Toast.makeText(
-                    context,
-                    inputPass,
-                    Toast.LENGTH_LONG
-                ).show()
+
             })
             Spacer(modifier = Modifier.padding(top = 16.dp))
             if (!loading) {

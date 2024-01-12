@@ -1,4 +1,4 @@
-package com.example.jetpackui.screens.login.home
+package com.example.jetpackui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

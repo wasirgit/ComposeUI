@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackui.screens.login.LoginScreen
-import com.example.jetpackui.screens.login.home.HomeScreen
+import com.example.jetpackui.screens.home.HomeScreen
 import com.example.jetpackui.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
