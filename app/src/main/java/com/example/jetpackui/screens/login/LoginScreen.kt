@@ -52,6 +52,13 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
     ) {
+        var inputValue by rememberSaveable { mutableStateOf("") }
+        var inputPass by rememberSaveable { mutableStateOf("") }
+        var loading by remember { mutableStateOf(false) }
+        val scope = rememberCoroutineScope() // Create a coroutine scope
+        var isInvalidEmail by rememberSaveable { mutableStateOf(false) }
+        var isInvalidPassword by rememberSaveable { mutableStateOf(false) }
+
         Box(modifier = Modifier.fillMaxSize()) {
             /// Background Image
             Image(
@@ -95,18 +102,16 @@ fun LoginScreen(
                 )
             )
             Spacer(modifier = Modifier.padding(top = 10.dp))
-            var inputValue by rememberSaveable { mutableStateOf("") }
-            var inputPass by rememberSaveable { mutableStateOf("") }
-            var loading by remember { mutableStateOf(false) }
-            val scope = rememberCoroutineScope() // Create a coroutine scope
-            var isError by rememberSaveable { mutableStateOf(false) }
-            UserInputField(value = inputValue, isError = isError, onChange = {
+
+            UserInputField(value = inputValue, isError = isInvalidEmail, onChange = {
                 inputValue = it
+                isInvalidEmail = false
             })
 
             Spacer(modifier = Modifier.padding(top = 5.dp))
-            PasswordField(value = inputPass, onChange = {
+            PasswordField(value = inputPass, isError = isInvalidPassword, onChange = {
                 inputPass = it
+                isInvalidPassword = false
             }, submit = {
 
             })
@@ -114,7 +119,11 @@ fun LoginScreen(
             if (!loading) {
                 FilledButton("Login") {
                     if (!isValidEmail(inputValue)) {
-                        isError = true
+                        isInvalidEmail = true
+                        return@FilledButton
+                    }
+                    if (!isValidPassword(inputPass)) {
+                        isInvalidPassword = true
                         return@FilledButton
                     }
                     loading = true
@@ -140,6 +149,10 @@ fun LoginScreen(
 fun isValidEmail(email: String): Boolean {
     val emailRegex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
     return email.matches(emailRegex)
+}
+
+fun isValidPassword(password: String): Boolean {
+    return password.length > 2
 }
 
 suspend fun loadProgress(updateProgress: () -> Unit) {

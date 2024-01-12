@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -73,6 +74,17 @@ fun UserInputField(
             onNext = { focusManager.moveFocus(FocusDirection.Down) }
         ),
         isError = isError,
+        supportingText = {
+            if (isError) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 0.dp),
+                    text = "Please enter valid email",
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+        },
     )
 }
 
@@ -82,6 +94,7 @@ fun PasswordField(
     value: String = "",
     onChange: (String) -> Unit,
     submit: () -> Unit,
+    isError: Boolean,
     placeholder: String = "Enter your Password"
 ) {
     val isPasswordVisible by remember { mutableStateOf(false) }
@@ -115,6 +128,16 @@ fun PasswordField(
                 )
             )
         },
+        isError = isError,
+        supportingText = {
+            if (isError) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Please enter your password",
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+        },
         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
 
         )
@@ -137,7 +160,7 @@ fun NormalText(value: String, textAlign: TextAlign) {
     )
 }
 
-@Preview
+@Preview(showBackground = false)
 @Composable
 fun PreviewTextFields() {
     AppTheme {
@@ -145,12 +168,12 @@ fun PreviewTextFields() {
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            UserInputField(value = "", isError = true,
+            UserInputField(value = "", isError = false,
                 onChange = {
                 })
             Spacer(Modifier.height(16.dp))
             PasswordField(
-                placeholder = "Enter your password",
+                placeholder = "Enter your password", isError = true,
                 onChange = {
 
                 }, submit = {
