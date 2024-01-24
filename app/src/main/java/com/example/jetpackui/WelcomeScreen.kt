@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.JetPackUI.R
-import com.example.jetpackui.components.FilledButton
+import com.example.jetpackui.screens.home.ui.components.FilledButton
 import com.example.jetpackui.ui.theme.gilroyFontBold
 import com.example.jetpackui.ui.theme.gilroyFontNormal
 

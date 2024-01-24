@@ -2,10 +2,13 @@ package com.example.jetpackui.screens.login
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -33,9 +36,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.JetPackUI.R
-import com.example.jetpackui.components.FilledButton
-import com.example.jetpackui.components.PasswordField
-import com.example.jetpackui.components.UserInputField
+import com.example.jetpackui.screens.home.ui.components.FilledButton
+import com.example.jetpackui.screens.home.ui.components.UserInputField
 import com.example.jetpackui.ui.theme.gilroyFontBold
 import com.example.jetpackui.ui.theme.gilroyFontNormal
 import kotlinx.coroutines.delay
@@ -74,7 +76,7 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
                 painter = painterResource(id = R.drawable.jetpack_compose),
@@ -82,65 +84,93 @@ fun LoginScreen(
                 modifier = Modifier.size(120.dp),
                 contentScale = ContentScale.Fit
             )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
 
-            Text(
-                text = "SignIn",
-                style = TextStyle(
-                    fontFamily = gilroyFontBold,
-                    color = Color.White,
-                    fontSize = 28.sp
-                ),
-                modifier = Modifier.align(Alignment.Start)
-            )
-            Spacer(modifier = Modifier.padding(top = 10.dp))
-            Text(
-                text = stringResource(R.string.sign_in_to_explore_other_features),
-                color = Color.White,
-                fontFamily = gilroyFontNormal,
-                modifier = Modifier.align(
-                    Alignment.Start
-                )
-            )
-            Spacer(modifier = Modifier.padding(top = 10.dp))
 
-            UserInputField(value = inputValue, isError = isInvalidEmail, onChange = {
-                inputValue = it
-                isInvalidEmail = false
-            })
+                    Text(
+                        text = "SignIn",
+                        style = TextStyle(
+                            fontFamily = gilroyFontBold,
+                            color = Color.White,
+                            fontSize = 28.sp
+                        ),
+                        modifier = Modifier.align(Alignment.Start)
+                    )
+                    Spacer(modifier = Modifier.padding(top = 10.dp))
+                    Text(
+                        text = stringResource(R.string.sign_in_to_explore_other_features),
+                        color = Color.White,
+                        fontFamily = gilroyFontNormal,
+                        modifier = Modifier.align(
+                            Alignment.Start
+                        )
+                    )
+                    Spacer(modifier = Modifier.padding(top = 10.dp))
 
-            Spacer(modifier = Modifier.padding(top = 5.dp))
-            PasswordField(value = inputPass, isError = isInvalidPassword, onChange = {
-                inputPass = it
-                isInvalidPassword = false
-            }, submit = {
+                    UserInputField(
+                        hint = "Enter your email here",
+                        isPassWord = false,
+                        value = inputValue,
+                        isError = isInvalidEmail,
+                        onChange = {
+                            inputValue = it
+                            isInvalidEmail = false
+                        },
+                        submit = {})
 
-            })
-            Spacer(modifier = Modifier.padding(top = 16.dp))
-            if (!loading) {
-                FilledButton("Login") {
-                    if (!isValidEmail(inputValue)) {
-                        isInvalidEmail = true
-                        return@FilledButton
-                    }
-                    if (!isValidPassword(inputPass)) {
-                        isInvalidPassword = true
-                        return@FilledButton
-                    }
-                    loading = true
-                    scope.launch {
-                        loadProgress {
-                            navController.navigate("homeScreen")
+                    Spacer(modifier = Modifier.padding(top = 5.dp))
+                    UserInputField(
+                        hint = "Enter your password",
+                        isPassWord = true,
+                        value = inputPass,
+                        isError = isInvalidPassword,
+                        onChange = {
+                            inputPass = it
+                            isInvalidPassword = false
+                        },
+                        submit = {
+
+                        })
+                    Spacer(modifier = Modifier.padding(top = 16.dp))
+                    if (!loading) {
+                        FilledButton("Login") {
+                            if (!isValidEmail(inputValue)) {
+                                isInvalidEmail = true
+                                return@FilledButton
+                            }
+                            if (!isValidPassword(inputPass)) {
+                                isInvalidPassword = true
+                                return@FilledButton
+                            }
+                            loading = true
+                            scope.launch {
+                                loadProgress {
+                                    navController.navigate("homeScreen")
+                                }
+                            }
                         }
+                    }
+
+                    if (loading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.width(64.dp),
+                            color = MaterialTheme.colorScheme.secondary,
+                        )
                     }
                 }
             }
 
-            if (loading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.width(64.dp),
-                    color = MaterialTheme.colorScheme.secondary,
-                )
-            }
 
         }
     }

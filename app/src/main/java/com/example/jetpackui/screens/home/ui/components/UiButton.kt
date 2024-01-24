@@ -1,10 +1,14 @@
-package com.example.jetpackui.components
+package com.example.jetpackui.screens.home.ui.components
 
+import android.graphics.drawable.Icon
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -32,8 +36,7 @@ fun FilledButton(buttonText: String, onClick: () -> Unit) {
             .height(55.dp)
     ) {
         Text(
-            text = buttonText,
-            color = Color.White
+            text = buttonText, color = Color.White
         )
     }
 }
@@ -77,8 +80,7 @@ fun IconButtonExample(
 fun FilledButtonPreview() {
     AppTheme {
         Column(
-            modifier = Modifier.padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             FilledButton("Test") {}
             OutlinedButtonExample("Outlined") {}
@@ -87,4 +89,18 @@ fun FilledButtonPreview() {
             IconButtonExample() {}
         }
     }
+}
+
+@Composable
+fun BackButton(onclick: () -> Unit) {
+    Icon(
+        Icons.Filled.ArrowBack,
+        contentDescription = null,
+        modifier = Modifier
+            .padding(top = 25.dp, bottom = 25.dp, start = 10.dp)
+            .clickable {
+                onclick()
+            },
+        tint = Color.White
+    )
 }

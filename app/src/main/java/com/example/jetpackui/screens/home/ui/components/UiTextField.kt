@@ -1,4 +1,4 @@
-package com.example.jetpackui.components
+package com.example.jetpackui.screens.home.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -40,10 +40,12 @@ import com.example.jetpackui.ui.theme.gilroyFontNormal
  */
 @Composable
 fun UserInputField(
-    hint: String = "Enter your email",
+    hint: String = "Enter your input here",
     value: String,
     isError: Boolean,
-    onChange: (String) -> Unit
+    isPassWord: Boolean,
+    onChange: (String) -> Unit,
+    submit: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -71,77 +73,35 @@ fun UserInputField(
         ),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         keyboardActions = KeyboardActions(
-            onNext = { focusManager.moveFocus(FocusDirection.Down) }
+            onNext = { focusManager.moveFocus(FocusDirection.Down) },
+            onDone = { submit() }
         ),
         isError = isError,
         supportingText = {
             if (isError) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 0.dp),
-                    text = "Please enter valid email",
-                    color = MaterialTheme.colorScheme.error
-                )
+                if (isPassWord) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 0.dp),
+                        text = "Please enter your password",
+                        color = MaterialTheme.colorScheme.error
+                    )
+                } else {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 0.dp),
+                        text = "Please enter valid email",
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
             }
         },
+        visualTransformation = if (isPassWord) PasswordVisualTransformation() else VisualTransformation.None
     )
 }
 
-
-@Composable
-fun PasswordField(
-    value: String = "",
-    onChange: (String) -> Unit,
-    submit: () -> Unit,
-    isError: Boolean,
-    placeholder: String = "Enter your Password"
-) {
-    val isPasswordVisible by remember { mutableStateOf(false) }
-    OutlinedTextField(
-        value = value,
-        onValueChange = onChange,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp)
-            .background(Color.Transparent, RectangleShape),
-
-        textStyle = TextStyle(
-            textAlign = TextAlign.Start,
-            color = Color.White,
-            fontWeight = FontWeight.Light
-        ),
-        keyboardOptions = KeyboardOptions(
-            imeAction = ImeAction.Done,
-            keyboardType = KeyboardType.Password
-        ),
-        keyboardActions = KeyboardActions(
-            onDone = { submit() }
-        ),
-        placeholder = {
-            Text(
-                placeholder,
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    fontFamily = gilroyFontNormal,
-                    color = Color.White
-                )
-            )
-        },
-        isError = isError,
-        supportingText = {
-            if (isError) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Please enter your password",
-                    color = MaterialTheme.colorScheme.error
-                )
-            }
-        },
-        visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-
-        )
-}
 
 @Composable
 fun NormalText(value: String, textAlign: TextAlign) {
@@ -168,17 +128,17 @@ fun PreviewTextFields() {
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            UserInputField(value = "", isError = false,
+            UserInputField(hint = "Please your email",
+                isPassWord = false,
+                value = "sdfds",
+                isError = true,
                 onChange = {
+                },
+                submit = {
+
                 })
             Spacer(Modifier.height(16.dp))
-            PasswordField(
-                placeholder = "Enter your password", isError = true,
-                onChange = {
 
-                }, submit = {
-
-                })
             NormalText(value = "font", TextAlign.Start)
         }
     }

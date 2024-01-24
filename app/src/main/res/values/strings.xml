@@ -6,4 +6,9 @@
     <string name="enter_your_password">Enter your password</string>
     <string name="sign_in_to_explore_other_features">Sign in to explore other features</string>
     <string name="please_enter_valid_email">Please enter valid email</string>
+    <string name="loading_data">Loading data\n</string>
+    <string name="strRetry">Try Again\n</string>
+    <string name="movie_list">Movie List</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="artists_details">Artist Details</string>
 </resources>

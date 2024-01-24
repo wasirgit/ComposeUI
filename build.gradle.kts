@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-
+plugins {
+    id("com.google.dagger.hilt.android") version "2.49" apply false
+}
 buildscript {
 
     repositories {
@@ -21,13 +22,3 @@ tasks.register<Delete>("clean") {
 }
 
 
-
-/**
- * Decides if this version is stable or not.
- */
-fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
-    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
-    val isStable = stableKeyword || regex.matches(version)
-    return !isStable
-}
