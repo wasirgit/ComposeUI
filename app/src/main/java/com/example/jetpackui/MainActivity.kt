@@ -56,8 +56,8 @@ class MainActivity : ComponentActivity() {
                 })
             ) {
                 val movieId: Int = it.arguments?.getInt("movieId") ?: -1
-                MovieDetailsScreen(navHostController = navController, movieId = movieId) { it ->
-                    navController.navigate(route = "artistDetails/$it")
+                MovieDetailsScreen(navHostController = navController, movieId = movieId) { movieId ->
+                    navController.navigate(route = "artistDetails/$movieId")
                 }
             }
 
